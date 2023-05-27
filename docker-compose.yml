@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  app:
+    image: 'ddd:latest'
+    build:
+      context: ddd
+      dockerfile: Dockerfile
+    container_name: ddd-0.0.1-SNAPSHOT
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL = jdbc:postgresql://db:5432/compose-postgres
+      - SPRING_DATASOURCE_USERNAME=username
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  db:
+    image: 'postgres:latest'
+    container_name: db
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
